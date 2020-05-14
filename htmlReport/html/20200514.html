@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="author" content="" />
+    <meta name="description" content="">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Blog by Junming</title>
+
+</head>
+<body>
+
+    
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="container">
+            <div class="heading-wrapper">
+                <h2 style = 'text-align: center'>2020年5月14日 星期四 阴转小雨</h2>
+                <p>最近开始做blockforest的实现，就重新翻出来博客，打算把开发过程记录下来。<br>
+                    我始终觉得做开发应该写点博客，因为有一些不注意的小坑，可能隔很久才会再碰到，就可以重新再翻一下自己的博客。然后别人跟你一起走上同一个大坑时，或者对你的项目感兴趣时，可以给别人分享你的博客，让别人也少走一些弯路。<br>
+                </p>
+                <p>本博客描述的源码在 <a href="https://github.com/JunmingKe/blockforest">https://github.com/JunmingKe/blockforest</a>。</p>
+                <h3>一些回顾</h3>
+                <p>已经把blockforest的基本框架搭起来了，现在再看<code>d3.js</code>，感觉JavaScript发展的太快了，我实现的磕磕巴巴，连滚带爬。然后d3官网也引用了observable视图展示example，这个视图太不友好了，很多地方完全不懂什么意思。</p>
+                <h3>力引导</h3>
+                <p>我打算用力引导来做blockforest的区块视图，但不知道最终看起来的效果怎么样。</p>
+                <img src="fig/WechatIMG30.png" alt="" width = '600px' >
+                <p><br></p>
+                <p>关于力引导的实现，有几个需要注意的地方。<br></p>
+                    <p><code>Object.create(d)</code>: 这是JavaScript的继承方式，但是不继承实例，只继承<code>prototype</code>，也就是说<code>Object.create('giao')</code>生成的是空字符串。<br></p>
+                    <p><code>$('#intro')[0].offsetWidth</code>: <code>JQuery</code>抓取的所有id叫<code>intro</code>的元素，如果非常确定id只有一个，那抓取后的数组只有一个，所以我之间访问了<code>[0]</code>,然后获取这个div的绝对宽度。</p>
+                    <p><code>const simulation = d3.forceSimulation(nodes)<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;.force("link", d3.forceLink(links).id(d => d.id))<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;.force("charge", d3.forceManyBody())<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;.force("center", d3.forceCenter(width / 2, height / 2));</code> <br>
+                  这是力引导的精髓，它声明了一个对象<code>simulation</code>，对象里是函数，函数对<code>nodes</code>和<code>links</code>作出力引导的计算，然后后面的<code>simulation.on('tick', () => {})</code>就是不停的调用<code>simulation</code>直到稳定状态。</p>
+                <p>绑定<code>drag</code>操作：<br>
+                    这个就好理解一些，就是声明一个<code>drag</code>函数，<code>drag</code>调用<code>simulation</code>，<code>simulation</code>接收<code>drag</code>的参数后更新<code>nodes</code>和<code>links</code>。</p>
+                <p>关于<code>var</code>, <code>let</code>和<code>const</code>：<br>
+                    ES6引入了<code>let</code>和<code>const</code>，关于这三种声明的区别，网上都说的很清楚，我总结起来就是开发不要用<code>var</code>，多用<code>let</code>，而且我真的遇上过用<code>var</code>出问题，但<code>let</code>就好了的bug。然后<code>const</code>是非常严格的变量声明，而且只能是常量，而且值不能改变，但是引用类型可以改变，其实这就是指针操作。</p>
+                <h3>接下来的计划</h3>
+                <p>&nbsp;&nbsp;1. 先模拟数据做个简单的数据结构展示demo。</p>
+                <p>&nbsp;&nbsp;2. 然后模拟多个client的运行情况。</p>
+                <p>&nbsp;&nbsp;3. 模拟prover和verifier的情况。</p>
+                <p>&nbsp;&nbsp;4. 想要重构一下自己的主页，这个看情况再说，现在感觉有一点臃肿。</p>
+                <p>最后说一下，我的博客现在采用纯html写了，之前的markdown转html还是太麻烦了，主要是转了之后还得按照html的规则插入到博客里。个人感觉不如直接手撸html，快捷方便，当然如果大家有更方便的方法，请告诉我，但是暂时还没有开服务器的想法。</p>
+                <a href="https://junmingke.github.io/WeeklyReport/" class="primary-btn">博客列表</a>
+                <a href="#https://junmingke.github.io" class="secondary-btn">查看主页</a>
+            </div>
+        </div>
+    </section>
+    <!-- End Hero -->
+
+    
+</body>
+
+</html>
